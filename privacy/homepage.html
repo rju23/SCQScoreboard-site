@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SCQ Scoreboard — Competition-Grade Quiz Software</title>
+  <meta name="description" content="SCQ Scoreboard is desktop software for running structured academic quiz competitions with timers, buzzer control, and live scoreboards." />
+  <meta name="theme-color" content="#0b1220" />
+  <link rel="icon" href="Assets/logo.png" type="image/png">
+  <link rel="apple-touch-icon" href="Assets/logo.png">
+  <meta property="og:title" content="SCQ Scoreboard — Competition-Grade Quiz Software">
+  <meta property="og:description" content="Windows desktop software for running structured academic quiz competitions with timers, buzzer control, and live scoreboard display.">
+  <meta property="og:image" content="Assets/CP.webp">
+  <meta property="og:type" content="website">
+  <style>
+    :root{
+      --bg:#070b14;
+      --panel:#0b1220;
+      --panel2:#0e1730;
+      --text:#eaf0ff;
+      --muted:#b7c2e1;
+      --line:rgba(255,255,255,.10);
+      --accent:#facc15; /* quiz-gold */
+      --accent2:#60a5fa; /* calm blue */
+      --good:#34d399;
+      --shadow: 0 18px 50px rgba(0,0,0,.45);
+      --radius:18px;
+      --max:1100px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font: 16px/1.55 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color:var(--text);
+      background:
+        radial-gradient(1100px 600px at 20% -10%, rgba(96,165,250,.22), transparent 55%),
+        radial-gradient(900px 500px at 85% 0%, rgba(250,204,21,.18), transparent 55%),
+        radial-gradient(700px 420px at 65% 110%, rgba(52,211,153,.10), transparent 55%),
+        linear-gradient(180deg, var(--bg), #060912 60%, #04050a);
+      overflow-x:hidden;
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 20px 70px}
+    header{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0 10px;
+    }
+    .brand{display:flex; gap:12px; align-items:center}
+    .logo-img{
+  width:42px;
+  height:42px;
+  object-fit: contain;
+  border-radius:10px;
+}
+
+    .brand h1{
+      font-size:15px; margin:0;
+      letter-spacing:.3px;
+    }
+    .brand p{
+      margin:0; font-size:12px; color:var(--muted);
+    }
+
+    .brand{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+
+.brand-text h1{
+  margin:0;
+  font-size:16px;
+  letter-spacing:.3px;
+}
+
+.brand-text p{
+  margin:0;
+  font-size:12px;
+  color:var(--muted);
+}
+
+    nav{display:flex; gap:14px; align-items:center}
+    nav a{
+      color:var(--muted);
+      padding:10px 12px;
+      border-radius:12px;
+      transition:.18s ease;
+    }
+    nav a:hover{color:var(--text); background:rgba(255,255,255,.06)}
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:12px 14px;
+      border-radius:14px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      color:var(--text);
+      box-shadow: 0 12px 30px rgba(0,0,0,.25);
+      transition:.18s ease;
+    }
+    .btn:hover{transform: translateY(-1px); background:rgba(255,255,255,.08)}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(250,204,21,.95), rgba(96,165,250,.78));
+      color:#07101f;
+      border: 1px solid rgba(255,255,255,.20);
+    }
+    .btn.primary:hover{filter:saturate(1.05); transform:translateY(-1px)}
+    .hero{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:26px;
+      margin-top:26px;
+      align-items:stretch;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(11,18,32,.92), rgba(7,11,20,.88));
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .hero-left{padding:34px}
+    .eyebrow{
+      display:inline-flex; align-items:center; gap:10px;
+      color:var(--muted);
+      background: rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:13px;
+    }
+    .dot{
+      width:8px; height:8px; border-radius:50%;
+      background: var(--good);
+      box-shadow: 0 0 0 6px rgba(52,211,153,.12);
+    }
+    h2{
+      font-size:44px; line-height:1.05;
+      margin:18px 0 12px;
+      letter-spacing:-.8px;
+    }
+    .sub{
+      color:var(--muted);
+      font-size:17px;
+      margin:0 0 18px;
+      max-width: 54ch;
+    }
+    .cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
+    .mini{
+      display:flex; gap:14px; margin-top:18px; flex-wrap:wrap;
+      color:var(--muted); font-size:13px;
+    }
+    .pill{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:8px 10px; border-radius:999px;
+      background: rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .hero-right{padding:22px}
+    .mock{
+      height: auto;
+      border-radius: 16px;
+      background:
+        linear-gradient(180deg, rgba(96,165,250,.16), rgba(250,204,21,.10)),
+        radial-gradient(700px 260px at 40% 20%, rgba(255,255,255,.10), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.12);
+      overflow:hidden;
+      position:relative;
+    }
+    .mock .topbar{
+      display:flex; justify-content:space-between; align-items:center;
+      padding:12px 14px;
+      background: rgba(11,18,32,.58);
+      border-bottom:1px solid rgba(255,255,255,.10);
+      color:var(--muted);
+      font-size:12px;
+    }
+    .mock .screen{
+      padding:14px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    .panel{
+      background: rgba(11,18,32,.55);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:14px;
+      padding:12px;
+    }
+    .panel h3{margin:0 0 10px; font-size:13px; color:var(--muted); font-weight:600}
+    .row{display:flex; justify-content:space-between; margin:8px 0; font-size:13px}
+    .bar{
+      height:10px; border-radius:999px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      overflow:hidden;
+    }
+    .bar > i{
+      display:block; height:100%;
+      width:60%;
+      background: linear-gradient(90deg, rgba(250,204,21,.85), rgba(96,165,250,.75));
+    }
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+      margin-top:18px;
+    }
+    .feat{padding:18px}
+    .feat h4{margin:8px 0 6px; font-size:15px}
+    .feat p{margin:0; color:var(--muted); font-size:14px}
+    .icon{
+      width:38px; height:38px; border-radius:12px;
+      background: rgba(250,204,21,.10);
+      border:1px solid rgba(250,204,21,.22);
+      display:flex; align-items:center; justify-content:center;
+      color:var(--accent);
+      font-weight:800;
+    }
+    section{margin-top:22px}
+    .split{
+      display:grid; grid-template-columns: 1fr 1fr; gap:14px;
+      margin-top:14px;
+    }
+    .box{padding:22px}
+    .box h3{margin:0 0 10px; font-size:18px}
+    .box p{margin:0; color:var(--muted)}
+    .list{margin:12px 0 0; padding:0; list-style:none}
+    .list li{
+      margin:10px 0;
+      display:flex; gap:10px; align-items:flex-start;
+      color:var(--muted);
+    }
+    .check{
+      width:18px; height:18px; border-radius:6px;
+      background: rgba(52,211,153,.12);
+      border:1px solid rgba(52,211,153,.28);
+      display:inline-flex; align-items:center; justify-content:center;
+      margin-top:2px;
+      color: var(--good);
+      font-weight:900;
+      flex:0 0 auto;
+    }
+    footer{
+      margin-top:28px;
+      padding-top:18px;
+      border-top:1px solid rgba(255,255,255,.10);
+      color:var(--muted);
+      display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;
+      font-size:13px;
+    }
+    .links{display:flex; gap:12px; flex-wrap:wrap}
+    .links a{color:var(--muted)}
+    .links a:hover{color:var(--text)}
+    .small{font-size:12px; color:var(--muted)}
+    @media (max-width: 920px){
+      .hero{grid-template-columns: 1fr}
+      .grid3{grid-template-columns: 1fr}
+      .split{grid-template-columns: 1fr}
+      h2{font-size:38px}
+      nav{display:none}
+    }
+
+    .dual-shot{
+  display:flex;
+  flex-direction:column;
+  gap:40px;
+  padding:32px 36px;
+}
+
+/* Container that controls scaling */
+.shot-frame{
+  width:100%;
+  border-radius:16px;
+  overflow:hidden;
+  background:rgba(0,0,0,0.35);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+}
+
+/* Proper scaling */
+.mock-shot{
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+/* Clean label styling */
+.shot-label{
+  font-size:15px;
+  font-weight:600;
+  opacity:.75;
+  margin-bottom:14px;
+}
+
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+  <img class="logo-img" src="Assets/logo.png" alt="SCQ Scoreboard logo" />
+  <div class="brand-text">
+    <h1>SCQ Scoreboard</h1>
+    <p>Competition-grade quiz software</p>
+  </div>
+</div>
+
+      <nav aria-label="Top navigation">
+        <a href="about.html">About</a>
+        <a href="how-to-use.html">How to use</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="#support">Support</a>       
+      </nav>
+
+      <a class="btn" href="#support">Contact</a>
+    </header>
+
+<div class="hero">
+  <div class="card hero-left">
+        <div class="eyebrow"><span class="dot"></span> Built for school quiz competitions • Alternate • Speed • Buzzer</div>
+        <h2>Train your teams like they are in an official TVJ match</h2>
+        <p class="sub">
+        SCQ Scoreboard is a Windows desktop app that runs the full match flow:
+        a dedicated Control Panel for the quizmaster and a clean, fullscreen Main Scoreboard for the audience—
+        with accurate alternate and buzzer question timing.
+        </p>
+
+        <p class="small" style="margin-top:10px;color:#b7c2e1;">
+        System requirements: Windows 10 or later.
+        </p>
+
+        <div class="cta">
+        <a class="btn primary" href="#licensing">View licensing</a>
+        <a class="btn" href="pricing.html">Pricing</a>
+        <a class="btn" href="#download">Download</a>
+        </div>
+
+
+        <div class="mini">
+          <span class="pill">✓ Digital delivery</span>
+          <span class="pill">✓ Free mode available</span>
+          <span class="pill">✓ Premium unlock</span>
+        </div>
+
+              <div id="download" style="margin-top:18px;">
+        <div class="card" style="padding:16px; background:rgba(11,18,32,.55); border:1px solid rgba(255,255,255,.10); box-shadow:none;">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+            <div>
+              <div style="font-weight:700; margin-bottom:4px;">Download SCQ Scoreboard</div>
+              <div class="small">Windows 10 or later • Activate Premium with a license key</div>
+            </div>
+            <a class="btn primary" href="#" aria-label="Download SCQ Scoreboard for Windows">
+              Download (.exe)
+            </a>
+          </div>
+
+          <div class="small" style="margin-top:10px;">
+            Prefer a direct link from your purchase email? You’ll receive it automatically after checkout.
+          </div>
+        </div>
+      </div>
+  </div>
+      
+      <div class="card hero-right" aria-label="App preview mockup">
+        <div class="mock">
+          <div class="topbar">
+            <span>SCQ Scoreboard — Dual Window Setup</span>
+            <span>Control Panel + Audience Display</span>
+          </div>
+              <div class="mock-body dual-shot">
+
+                  <div class="shot-block">
+                    <div class="shot-label">Control Panel (Quizmaster View)</div>
+                    <div class="shot-frame">
+                      <img src="Assets/CP.webp" alt="SCQ Control Panel" class="mock-shot">
+                    </div>
+                  </div>
+
+                  <div class="shot-block">
+                    <div class="shot-label">Main Scoreboard (Audience Display)</div>
+                    <div class="shot-frame">
+                      <img src="Assets/MS.webp" alt="SCQ Main Scoreboard" class="mock-shot">
+                    </div>
+                  </div>
+
+                </div>
+                </div>
+      </div>
+    </div>
+
+    <div class="grid3" style="margin-top:14px">
+          <div class="card feat">
+            <div class="icon">⏱</div>
+            <h4>Round timing</h4>
+            <p>Built-in timing for Alternate, Speed, and Buzzer sections—clean transitions, no confusion.</p>
+          </div>
+          <div class="card feat">
+            <div class="icon">🎛</div>
+            <h4>Quizmaster controls</h4>
+            <p>Fast scoring buttons, round controls, and match flow tools designed for real competitions.</p>
+          </div>
+          <div class="card feat">
+            <div class="icon">📺</div>
+            <h4>Audience display</h4>
+            <p>A fullscreen scoreboard that looks professional on a projector, TV, or second monitor.</p>
+          </div>
+        </div>
+
+    <section id="features">
+      <div class="split">
+        <div class="card box">
+          <h3>Designed for real competitions</h3>
+          <p>
+            SCQ Scoreboard supports common academic competition formats and helps organizers run events
+            with consistent timing, accurate scoring, and a professional on-screen presentation.
+          </p>
+          <ul class="list">
+            <li><span class="check">✓</span> Alternate-style rounds and timed minute rounds</li>
+            <li><span class="check">✓</span> Buzzer round control and lock states</li>
+            <li><span class="check">✓</span> Team management and score tracking</li>
+            <li><span class="check">✓</span> Fullscreen live scoreboard display</li>
+          </ul>
+        </div>
+
+        <div class="card box">
+          <h3>Simple licensing, digital delivery</h3>
+          <p>
+            Free download available. Premium features unlocked via license key purchase. 14 day free trial available. Premium license
+            unlocking full functionality for practice and competitions, with digital delivery and support contact for schools and organizers.
+          </p>
+          <ul class="list">
+            <li><span class="check">✓</span> Digital download after purchase</li>
+            <li><span class="check">✓</span> One-time license (or subscription later if you choose)</li>
+            <li><span class="check">✓</span> Optional premium feature unlock</li>
+            <li><span class="check">✓</span> Support contact for schools and organizers</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="licensing">
+      <div class="card box">
+        <h3>Licensing</h3>
+        <p>
+          The application can be downloaded for free. Premium features are unlocked by purchasing a license key or a 14-day free trial. You can run it in free mode, or purchase
+          a premium license to unlock full features for competitions.
+        </p>
+        <ul class="list">
+          <li><span class="check">✓</span> Free mode: basic operation for testing and smaller sessions</li>
+          <li><span class="check">✓</span> Premium license: full feature access for organized events</li>
+          <li><span class="check">✓</span> Delivery: digital download and license activation</li>
+        </ul>
+        <p class="small" style="margin-top:12px">
+          Note: This is educational software. We do not facilitate gambling, wagering, or betting activities.
+        </p>
+        <p class="small" style="margin-top:12px;">
+        Licenses are device-based and delivered digitally via email after purchase.
+        </p>
+        <p class="small" style="margin-top:12px;">
+        Refunds are available within 14 days of purchase if the license has not been activated.
+        </p>
+      </div>
+    </section>
+
+    <section id="support">
+      <div class="card box">
+        <h3>Support & contact</h3>
+        <p>
+          For licensing questions, technical support, or partnerships, contact:
+          <strong>support@scqscoreboard.com</strong>
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      <div>
+        <div><strong>SCQ Scoreboard</strong></div>
+        <div class="small">© <span id="y"></span> • All rights reserved</div>
+      </div>
+      <div class="small">Current Version 2.2.4 • © <span id="y"></span> • All rights reserved</div>
+      <div class="links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+
