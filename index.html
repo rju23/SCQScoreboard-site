@@ -6,6 +6,12 @@
   <title>SCQ Scoreboard — Competition-Grade Quiz Software</title>
   <meta name="description" content="SCQ Scoreboard is desktop software for running structured academic quiz competitions with timers, buzzer control, and live scoreboards." />
   <meta name="theme-color" content="#0b1220" />
+  <link rel="icon" href="Assets/logo.png" type="image/png">
+  <link rel="apple-touch-icon" href="Assets/logo.png">
+  <meta property="og:title" content="SCQ Scoreboard — Competition-Grade Quiz Software">
+  <meta property="og:description" content="Windows desktop software for running structured academic quiz competitions with timers, buzzer control, and live scoreboard display.">
+  <meta property="og:image" content="Assets/CP.webp">
+  <meta property="og:type" content="website">
   <style>
     :root{
       --bg:#070b14;
@@ -150,7 +156,7 @@
     }
     .hero-right{padding:22px}
     .mock{
-      height: 360px;
+      height: auto;
       border-radius: 16px;
       background:
         linear-gradient(180deg, rgba(96,165,250,.16), rgba(250,204,21,.10)),
@@ -253,6 +259,38 @@
       h2{font-size:38px}
       nav{display:none}
     }
+
+    .dual-shot{
+  display:flex;
+  flex-direction:column;
+  gap:40px;
+  padding:32px 36px;
+}
+
+/* Container that controls scaling */
+.shot-frame{
+  width:100%;
+  border-radius:16px;
+  overflow:hidden;
+  background:rgba(0,0,0,0.35);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+}
+
+/* Proper scaling */
+.mock-shot{
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+/* Clean label styling */
+.shot-label{
+  font-size:15px;
+  font-weight:600;
+  opacity:.75;
+  margin-bottom:14px;
+}
+
   </style>
 </head>
 
@@ -268,21 +306,23 @@
 </div>
 
       <nav aria-label="Top navigation">
-        <a href="#features">Features</a>
-        <a href="#licensing">Licensing</a>
-        <a href="#support">Support</a>
+        <a href="about.html">About</a>
+        <a href="how-to-use.html">How to use</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="#support">Support</a>       
       </nav>
 
       <a class="btn" href="#support">Contact</a>
     </header>
 
-    <div class="hero">
-      <div class="card hero-left">
-        <div class="eyebrow"><span class="dot"></span> Built for academic competitions • Timers • Live scoring • Buzzer rounds</div>
-        <h2>Run fast, fair, and professional quiz competitions.</h2>
+<div class="hero">
+  <div class="card hero-left">
+        <div class="eyebrow"><span class="dot"></span> Built for school quiz competitions • Alternate • Speed • Buzzer</div>
+        <h2>Train your teams like they are in an official TVJ match</h2>
         <p class="sub">
-        SCQ Scoreboard is a Windows desktop application for organizing structured academic quiz competitions—complete with
-        round timing, buzzer control, and a live scoreboard built for the stage.
+        SCQ Scoreboard is a Windows desktop app that runs the full match flow:
+        a dedicated Control Panel for the quizmaster and a clean, fullscreen Main Scoreboard for the audience—
+        with accurate alternate and buzzer question timing.
         </p>
 
         <p class="small" style="margin-top:10px;color:#b7c2e1;">
@@ -290,62 +330,81 @@
         </p>
 
         <div class="cta">
-          <a class="btn primary" href="#licensing">View licensing</a>
-          <a class="btn" href="#features">See features</a>
+        <a class="btn primary" href="#licensing">View licensing</a>
+        <a class="btn" href="pricing.html">Pricing</a>
+        <a class="btn" href="#download">Download</a>
         </div>
+
 
         <div class="mini">
           <span class="pill">✓ Digital delivery</span>
           <span class="pill">✓ Free mode available</span>
           <span class="pill">✓ Premium unlock</span>
         </div>
-      </div>
 
+              <div id="download" style="margin-top:18px;">
+        <div class="card" style="padding:16px; background:rgba(11,18,32,.55); border:1px solid rgba(255,255,255,.10); box-shadow:none;">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+            <div>
+              <div style="font-weight:700; margin-bottom:4px;">Download SCQ Scoreboard</div>
+              <div class="small">Windows 10 or later • Activate Premium with a license key</div>
+            </div>
+            <a class="btn primary" href="#" aria-label="Download SCQ Scoreboard for Windows">
+              Download (.exe)
+            </a>
+          </div>
+
+          <div class="small" style="margin-top:10px;">
+            Prefer a direct link from your purchase email? You’ll receive it automatically after checkout.
+          </div>
+        </div>
+      </div>
+  </div>
+      
       <div class="card hero-right" aria-label="App preview mockup">
         <div class="mock">
           <div class="topbar">
-            <span>Live Scoreboard</span>
-            <span>Round: Minute • 03:00</span>
+            <span>SCQ Scoreboard — Dual Window Setup</span>
+            <span>Control Panel + Audience Display</span>
           </div>
-          <div class="screen">
-            <div class="panel">
-              <h3>Team Scores</h3>
-              <div class="row"><span>Team A</span><strong>120</strong></div>
-              <div class="bar"><i style="width:72%"></i></div>
-              <div class="row"><span>Team B</span><strong>110</strong></div>
-              <div class="bar"><i style="width:66%"></i></div>
-              <div class="row"><span>Team C</span><strong>95</strong></div>
-              <div class="bar"><i style="width:57%"></i></div>
-            </div>
-            <div class="panel">
-              <h3>Control Panel</h3>
-              <div class="row"><span>Timer</span><span class="small">Start / Pause / Reset</span></div>
-              <div class="row"><span>Buzzer</span><span class="small">Lock / Unlock</span></div>
-              <div class="row"><span>Rounds</span><span class="small">Alternate • Minute • Buzzer</span></div>
-              <div class="row"><span>Display</span><span class="small">Fullscreen scoreboard</span></div>
-            </div>
-          </div>
-        </div>
+              <div class="mock-body dual-shot">
 
-        <div class="grid3" style="margin-top:14px">
+                  <div class="shot-block">
+                    <div class="shot-label">Control Panel (Quizmaster View)</div>
+                    <div class="shot-frame">
+                      <img src="Assets/CP.webp" alt="SCQ Control Panel" class="mock-shot">
+                    </div>
+                  </div>
+
+                  <div class="shot-block">
+                    <div class="shot-label">Main Scoreboard (Audience Display)</div>
+                    <div class="shot-frame">
+                      <img src="Assets/MS.webp" alt="SCQ Main Scoreboard" class="mock-shot">
+                    </div>
+                  </div>
+
+                </div>
+                </div>
+      </div>
+    </div>
+
+    <div class="grid3" style="margin-top:14px">
           <div class="card feat">
             <div class="icon">⏱</div>
             <h4>Round timing</h4>
-            <p>Built-in timers for structured sections and smooth transitions.</p>
+            <p>Built-in timing for Alternate, Speed, and Buzzer sections—clean transitions, no confusion.</p>
           </div>
           <div class="card feat">
             <div class="icon">🎛</div>
-            <h4>Control panel</h4>
-            <p>Operate the match confidently with a clear, locked UI.</p>
+            <h4>Quizmaster controls</h4>
+            <p>Fast scoring buttons, round controls, and match flow tools designed for real competitions.</p>
           </div>
           <div class="card feat">
             <div class="icon">📺</div>
-            <h4>Live scoreboard</h4>
-            <p>Display scores cleanly on screen for teams and audience.</p>
+            <h4>Audience display</h4>
+            <p>A fullscreen scoreboard that looks professional on a projector, TV, or second monitor.</p>
           </div>
         </div>
-      </div>
-    </div>
 
     <section id="features">
       <div class="split">
@@ -394,14 +453,14 @@
         <p class="small" style="margin-top:12px">
           Note: This is educational software. We do not facilitate gambling, wagering, or betting activities.
         </p>
-        <p class="small" style="margin-top:14px;">
+        <p class="small" style="margin-top:12px;">
+        Licenses are device-based and delivered digitally via email after purchase.
+        </p>
+        <p class="small" style="margin-top:12px;">
         Refunds are available within 14 days of purchase if the license has not been activated.
         </p>
       </div>
     </section>
-
-    
-
 
     <section id="support">
       <div class="card box">
@@ -418,6 +477,7 @@
         <div><strong>SCQ Scoreboard</strong></div>
         <div class="small">© <span id="y"></span> • All rights reserved</div>
       </div>
+      <div class="small">Current Version 2.2.4 • © <span id="y"></span> • All rights reserved</div>
       <div class="links">
         <a href="privacy.html">Privacy Policy</a>
         <a href="terms.html">Terms of Service</a>
