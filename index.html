@@ -350,6 +350,39 @@
       .install-mini-steps{ grid-template-columns: 1fr; }
       .wide-shots{ grid-template-columns: 1fr; }
     }
+
+    /* Lightbox */
+.lb{
+  position: fixed;
+  inset: 0;
+  display: none;
+  z-index: 9999;
+}
+
+.lb.is-open{ display:block; }
+
+.lb__backdrop{
+  position:absolute;
+  inset:0;
+  background: rgba(0,0,0,.75);
+}
+
+.lb__img{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  max-width: min(1100px, 92vw);
+  max-height: 88vh;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.18);
+  box-shadow: 0 20px 80px rgba(0,0,0,.55);
+}
+
+/* Make clickable images feel clickable */
+.lb-click{
+  cursor: zoom-in;
+}
 </style>
 </head>
 
@@ -384,7 +417,23 @@
         SCQ Scoreboard is a Windows desktop app that runs the full match flow:
         a dedicated Control Panel for the quizmaster and a clean, fullscreen Main Scoreboard for the audience—
         with visuals and audio available to implement. This is an All-in-One solution for practice and competitions.
-
+        <div id="download" style="margin-top:18px;">
+        <div class="card" style="padding:16px; background:rgba(11,18,32,.55); border:1px solid rgba(255,255,255,.10); box-shadow:none;">
+          <div style="display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;">
+            <div>
+              <div style="font-weight:700; margin-bottom:4px;">Download SCQ Scoreboard</div>
+              <div class="small">Windows 10 or later • Activate Premium with a license key</div>
+            </div>
+            <a
+              class="btn primary"
+              href="https://github.com/rju23/scq-scoreboard-updates/releases/download/v2.2.7/SCQ-Scoreboard-Setup-2.2.7.exe"
+              aria-label="Download SCQ Scoreboard for Windows"
+            >
+              Download (.exe)
+            </a>
+          </div>
+        </div>
+      </div>
         <p class="small" style="margin-top:10px;color:#b7c2e1;">
         System requirements: Windows 10 or later.
         </p>
@@ -402,27 +451,7 @@
           <span class="pill">✓ Premium unlock</span>
         </div>
 
-              <div id="download" style="margin-top:18px;">
-        <div class="card" style="padding:16px; background:rgba(11,18,32,.55); border:1px solid rgba(255,255,255,.10); box-shadow:none;">
-          <div style="display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;">
-            <div>
-              <div style="font-weight:700; margin-bottom:4px;">Download SCQ Scoreboard</div>
-              <div class="small">Windows 10 or later • Activate Premium with a license key</div>
-            </div>
-            <a
-              class="btn primary"
-              href="https://github.com/rju23/scq-scoreboard-updates/releases/download/v2.2.6/SCQ-Scoreboard-Setup-2.2.6.exe"
-              aria-label="Download SCQ Scoreboard for Windows"
-            >
-              Download (.exe)
-            </a>
-          </div>
-
-          <div class="small" style="margin-top:10px;">
-            Prefer a direct link from your purchase email? You’ll receive it automatically after checkout.
-          </div>
-        </div>
-      </div>
+              
   </div>
       
             <div class="card hero-right install-card" aria-label="Installation guide for Windows SmartScreen">
@@ -436,19 +465,19 @@
           <div class="install-mini-step">
             <div class="install-mini-step__num">1</div>
             <div class="install-mini-step__text">If <strong>this message appears when downloading</strong></div>
-            <img class="install-mini-step__img" src="Assets/smartscreen-1.webp" alt="Windows SmartScreen: Windows protected your PC screen" loading="lazy">
+            <img class="install-mini-step__img lb-click" src="Assets/smartscreen-1.webp" alt="Windows SmartScreen: Windows protected your PC screen" loading="lazy">
           </div>
 
           <div class="install-mini-step">
             <div class="install-mini-step__num">2</div>
             <div class="install-mini-step__text">Then click <strong>More Info</strong></div>
-            <img class="install-mini-step__img" src="Assets/smartscreen-2.webp" alt="Windows SmartScreen: Run anyway button" loading="lazy">
+            <img class="install-mini-step__img lb-click" src="Assets/smartscreen-2.webp" alt="Windows SmartScreen: Run anyway button" loading="lazy">
           </div>
 
           <div class="install-mini-step">
             <div class="install-mini-step__num">3</div>
             <div class="install-mini-step__text">Then click <strong>Run anyway</strong></div>
-            <img class="install-mini-step__img" src="Assets/smartscreen-3.webp" alt="Windows SmartScreen: Run anyway button" loading="lazy">
+            <img class="install-mini-step__img lb-click" src="Assets/smartscreen-3.webp" alt="Windows SmartScreen: Run anyway button" loading="lazy">
           </div>
 
         </div>
@@ -473,11 +502,11 @@
       <div class="wide-shots">
         <figure class="wide-shot">
           <figcaption class="small" style="font-size:20px;">Control Panel</figcaption>
-          <img src="Assets/CP.webp" alt="SCQ Scoreboard Control Panel window" loading="lazy">
+          <img class="lb-click" src="Assets/CP.webp" alt="SCQ Scoreboard Control Panel window" loading="lazy">
         </figure>
         <figure class="wide-shot">
           <figcaption class="small" style="font-size:20px;">Main Scoreboard</figcaption>
-          <img src="Assets/MS.webp" alt="SCQ Scoreboard Main Scoreboard window" loading="lazy">
+          <img class="lb-click" src="Assets/MS.webp" alt="SCQ Scoreboard Main Scoreboard window" loading="lazy">
         </figure>
       </div>
     </div>
@@ -582,6 +611,53 @@
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
   </script>
+
+  <!-- Lightbox modal (click images to enlarge) -->
+<div id="lightbox" class="lb" aria-hidden="true">
+  <div class="lb__backdrop" data-lb-close="1"></div>
+  <img id="lightboxImg" class="lb__img" alt="">
+
+  <script>
+  (function(){
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightboxImg');
+
+    function openLightbox(src, alt){
+      lbImg.src = src;
+      lbImg.alt = alt || '';
+      lb.classList.add('is-open');
+      lb.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(){
+      lb.classList.remove('is-open');
+      lb.setAttribute('aria-hidden', 'true');
+      lbImg.src = '';
+      document.body.style.overflow = '';
+    }
+
+    // Click-to-open on any image you mark with .lb-click
+    document.addEventListener('click', (e) => {
+      const img = e.target.closest('img.lb-click');
+      if (img) {
+        e.preventDefault();
+        openLightbox(img.currentSrc || img.src, img.alt);
+      }
+    });
+
+    // Click outside to close
+    lb.addEventListener('click', (e) => {
+      if (e.target.matches('[data-lb-close]')) closeLightbox();
+    });
+
+    // Esc to close
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lb.classList.contains('is-open')) closeLightbox();
+    });
+  })();
+</script>
+</div>
 </body>
 </html>
 
