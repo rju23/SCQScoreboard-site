@@ -291,7 +291,66 @@
   margin-bottom:14px;
 }
 
-  </style>
+  
+
+    /* Install guide (SmartScreen) */
+    .install-mini-steps{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap:12px;
+    }
+    .install-mini-step{
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      border-radius:16px;
+      padding:12px;
+      overflow:hidden;
+    }
+    .install-mini-step__num{
+      width:30px; height:30px;
+      border-radius:10px;
+      display:flex; align-items:center; justify-content:center;
+      font-weight:800;
+      color:#07101f;
+      background: linear-gradient(135deg, rgba(250,204,21,.95), rgba(96,165,250,.78));
+      border:1px solid rgba(255,255,255,.20);
+      margin-bottom:10px;
+    }
+    .install-mini-step__text{ color: var(--muted); font-size:13px; margin-bottom:10px; }
+    .install-mini-step__img{
+      width:100%;
+      height:auto;
+      display:block;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.25);
+    }
+
+    /* Wide preview card under hero */
+    .wide-shots{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+      padding: 14px;
+      margin-top:14px;
+    }
+    .wide-shot{ margin:0; }
+    .wide-shot figcaption{ margin:0 0 8px; color:var(--muted); }
+    .wide-shot img{
+      width:100%;
+      height:auto;
+      padding: 14px;
+      display:block;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.20);
+    }
+
+    @media (max-width: 920px){
+      .install-mini-steps{ grid-template-columns: 1fr; }
+      .wide-shots{ grid-template-columns: 1fr; }
+    }
+</style>
 </head>
 
 <body>
@@ -352,7 +411,7 @@
             </div>
             <a
               class="btn primary"
-              href="https://github.com/rju23/scq-scoreboard-updates/releases/download/v2.2.7/SCQ-Scoreboard-Setup-2.2.7.exe"
+              href="https://github.com/rju23/scq-scoreboard-updates/releases/download/v2.2.6/SCQ-Scoreboard-Setup-2.2.6.exe"
               aria-label="Download SCQ Scoreboard for Windows"
             >
               Download (.exe)
@@ -366,30 +425,60 @@
       </div>
   </div>
       
-      <div class="card hero-right" aria-label="App preview mockup">
-        <div class="mock">
-          <div class="topbar">
-            <span>SCQ Scoreboard — Dual Window Setup</span>
-            <span>Control Panel + Audience Display</span>
+            <div class="card hero-right install-card" aria-label="Installation guide for Windows SmartScreen">
+        <div class="eyebrow"><span class="dot"></span> First-time install on Windows</div>
+        <h3 style="margin:6px 0 8px; font-size:18px;">If Windows blocks the installer (SmartScreen)</h3>
+        <p class="small" style="margin:0; color:var(--muted);">
+          You may see “Windows protected your PC”. Click <strong>More info</strong> → <strong>Run anyway</strong>.
+        </p>
+
+        <div class="install-mini-steps" style="margin-top:14px;">
+          <div class="install-mini-step">
+            <div class="install-mini-step__num">1</div>
+            <div class="install-mini-step__text">If <strong>this message appears when downloading</strong></div>
+            <img class="install-mini-step__img" src="Assets/smartscreen-1.webp" alt="Windows SmartScreen: Windows protected your PC screen" loading="lazy">
           </div>
-              <div class="mock-body dual-shot">
 
-                  <div class="shot-block">
-                    <div class="shot-label">Control Panel (Quizmaster View)</div>
-                    <div class="shot-frame">
-                      <img src="Assets/CP.webp" alt="SCQ Control Panel" class="mock-shot">
-                    </div>
-                  </div>
+          <div class="install-mini-step">
+            <div class="install-mini-step__num">2</div>
+            <div class="install-mini-step__text">Then click <strong>More Info</strong></div>
+            <img class="install-mini-step__img" src="Assets/smartscreen-2.webp" alt="Windows SmartScreen: Run anyway button" loading="lazy">
+          </div>
 
-                  <div class="shot-block">
-                    <div class="shot-label">Main Scoreboard (Audience Display)</div>
-                    <div class="shot-frame">
-                      <img src="Assets/MS.webp" alt="SCQ Main Scoreboard" class="mock-shot">
-                    </div>
-                  </div>
+          <div class="install-mini-step">
+            <div class="install-mini-step__num">3</div>
+            <div class="install-mini-step__text">Then click <strong>Run anyway</strong></div>
+            <img class="install-mini-step__img" src="Assets/smartscreen-3.webp" alt="Windows SmartScreen: Run anyway button" loading="lazy">
+          </div>
 
-                </div>
-                </div>
+        </div>
+
+        <div class="small" style="margin-top:12px; color:var(--muted);">
+          Still stuck? Email <strong>support@scqscoreboard.com</strong> with a screenshot.
+        </div>
+      </div>
+    </div>
+
+    <div class="card wide-preview" aria-label="Main Scoreboard and Control Panel preview" style="margin-top:14px;">
+      <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:14px;">
+        <div>
+          <div class="eyebrow"><span class="dot"></span> Dual-window layout</div>
+          <h3 style="margin:6px 0 6px; font-size:28px;">Main Scoreboard + Control Panel</h3>
+          <p class="small" style="margin:0; color:var(--muted); font-size:20px;">
+            Run the Control Panel on your laptop and project the Main Scoreboard to a TV or projector.
+          </p>
+        </div>
+      </div>
+
+      <div class="wide-shots">
+        <figure class="wide-shot">
+          <figcaption class="small" style="font-size:20px;">Control Panel</figcaption>
+          <img src="Assets/CP.webp" alt="SCQ Scoreboard Control Panel window" loading="lazy">
+        </figure>
+        <figure class="wide-shot">
+          <figcaption class="small" style="font-size:20px;">Main Scoreboard</figcaption>
+          <img src="Assets/MS.webp" alt="SCQ Scoreboard Main Scoreboard window" loading="lazy">
+        </figure>
       </div>
     </div>
 
@@ -482,7 +571,7 @@
         <div><strong>SCQ Scoreboard</strong></div>
         <div class="small">© <span id="y"></span> • All rights reserved</div>
       </div>
-      <div class="small">Current Version 2.0.0 series • © <span id="y"></span> • All rights reserved</div>
+      <div class="small">Current Version 2.2.4 • © <span id="y"></span> • All rights reserved</div>
       <div class="links">
         <a href="/privacy/">Privacy Policy</a>
         <a href="/terms/">Terms of Service</a>
