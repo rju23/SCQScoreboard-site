@@ -421,16 +421,39 @@
         <div class="card" style="padding:16px; background:rgba(11,18,32,.55); border:1px solid rgba(255,255,255,.10); box-shadow:none;">
           <div style="display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;">
             <div>
-              <div style="font-weight:700; margin-bottom:4px;">Download SCQ Scoreboard</div>
-              <div class="small">Windows 10 or later • Activate Premium with a license key</div>
+              <div style="font-weight:700; margin-bottom:4px;">
+                Download SCQ Scoreboard
+              </div>
+
+              <div class="small" id="latestVersion">
+                Available for Windows & macOS • Loading latest version...
+              </div>
             </div>
-            <a
-              class="btn primary"
-              href="https://github.com/rju23/scq-scoreboard-updates/releases/download/v2.5.3/SCQ-Scoreboard-Setup-2.5.3.exe"
-              aria-label="Download SCQ Scoreboard for Windows"
-            >
-              Download (.exe)
-            </a>
+            <div style="display:flex; gap:12px; flex-wrap:wrap;">
+
+  <a
+    id="windowsBtn"
+    class="btn primary"
+    href="#"
+    aria-label="Download SCQ Scoreboard for Windows"
+  >
+    🪟 Download for Windows
+  </a>
+
+  <a
+    id="macBtn"
+    class="btn"
+    href="#"
+    aria-label="Download SCQ Scoreboard for macOS"
+  >
+    🍎 Download for macOS
+  </a>
+
+  <div class="small" style="margin-top:12px;">
+    Windows includes automatic in-app updates.
+    macOS updates are installed by downloading the latest version from this website.
+</div>
+</div>
           </div>
         </div>
       </div>
@@ -609,8 +632,83 @@
   </div>
 
   <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
+  document.getElementById("y").textContent = new Date().getFullYear();
+
+  async function loadLatestDownloads() {
+
+    try {
+
+      const response = await fetch(
+        "https://api.github.com/repos/rju23/scq-scoreboard-updates/releases/latest"
+      );
+
+      if (!response.ok) throw new Error("Couldn't fetch latest release.");
+
+      const release = await response.json();
+
+      document.getElementById("latestVersion").textContent =
+    `Latest Version ${release.tag_name} • Windows & macOS`;
+
+      const windowsAsset = release.assets.find(asset =>
+        asset.name.toLowerCase().endsWith(".exe")
+      );
+
+      const macAsset = release.assets.find(asset =>
+        asset.name.toLowerCase().endsWith(".dmg")
+      );
+
+      if (windowsAsset) {
+        const btn = document.getElementById("windowsBtn");
+        btn.href = windowsAsset.browser_download_url;
+      }
+
+      if (macAsset) {
+        const btn = document.getElementById("macBtn");
+        btn.href = macAsset.browser_download_url;
+      }
+
+    } catch (err) {
+
+      console.error(err);
+
+      // Optional fallback
+      document.getElementById("windowsBtn").href =
+        "https://github.com/rju23/scq-scoreboard-updates/releases/latest";
+
+      document.getElementById("macBtn").href =
+        "https://github.com/rju23/scq-scoreboard-updates/releases/latest";
+    }
+
+    // Detect visitor operating system
+const isMac = navigator.userAgent.includes("Mac");
+const windowsBtn = document.getElementById("windowsBtn");
+const macBtn = document.getElementById("macBtn");
+
+if (isMac) {
+
+    // macOS becomes the recommended download
+    macBtn.classList.add("primary");
+    windowsBtn.classList.remove("primary");
+
+    macBtn.innerHTML = "🍎 Recommended for your Mac";
+    windowsBtn.innerHTML = "🪟 Windows Download";
+
+} else {
+
+    // Default to Windows
+    windowsBtn.classList.add("primary");
+    macBtn.classList.remove("primary");
+
+    windowsBtn.innerHTML = "🪟 Recommended for Windows";
+    macBtn.innerHTML = "🍎 macOS (Apple Silicon)";
+
+}
+
+  }
+
+  loadLatestDownloads();
+
+</script>
 
   <!-- Lightbox modal (click images to enlarge) -->
 <div id="lightbox" class="lb" aria-hidden="true">
