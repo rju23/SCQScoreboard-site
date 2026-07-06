@@ -634,80 +634,16 @@
   <script>
   document.getElementById("y").textContent = new Date().getFullYear();
 
-  async function loadLatestDownloads() {
+  const WINDOWS_URL =
+  "https://github.com/rju23/scq-scoreboard-updates/releases/download/v2.6.0/SCQ-Scoreboard-Setup-2.6.0.exe";
 
-    try {
+  const MAC_URL =
+  "https://github.com/rju23/School-Challenge-Quiz-Scoreboard/releases/download/v2.6.0/SCQ.Scoreboard-2.6.0-arm64.dmg";
 
-      const response = await fetch(
-        "https://api.github.com/repos/rju23/scq-scoreboard-updates/releases/latest"
-      );
 
-      if (!response.ok) throw new Error("Couldn't fetch latest release.");
-
-      const release = await response.json();
-
-      document.getElementById("latestVersion").textContent =
-    `Latest Version ${release.tag_name} • Windows & macOS`;
-
-      const windowsAsset = release.assets.find(asset =>
-        asset.name.toLowerCase().endsWith(".exe")
-      );
-
-      const macAsset = release.assets.find(asset =>
-        asset.name.toLowerCase().endsWith(".dmg")
-      );
-
-      if (windowsAsset) {
-        const btn = document.getElementById("windowsBtn");
-        btn.href = windowsAsset.browser_download_url;
-      }
-
-      if (macAsset) {
-        const btn = document.getElementById("macBtn");
-        btn.href = macAsset.browser_download_url;
-      }
-
-    } catch (err) {
-
-      console.error(err);
-
-      // Optional fallback
-      document.getElementById("windowsBtn").href =
-        "https://github.com/rju23/scq-scoreboard-updates/releases/latest";
-
-      document.getElementById("macBtn").href =
-        "https://github.com/rju23/School-Challenge-Quiz-Scoreboard/releases/latest";
-    }
-
-    // Detect visitor operating system
-const isMac = navigator.userAgent.includes("Mac");
-const windowsBtn = document.getElementById("windowsBtn");
-const macBtn = document.getElementById("macBtn");
-
-if (isMac) {
-
-    // macOS becomes the recommended download
-    macBtn.classList.add("primary");
-    windowsBtn.classList.remove("primary");
-
-    macBtn.innerHTML = "🍎 Recommended for your Mac";
-    windowsBtn.innerHTML = "🪟 Windows Download";
-
-} else {
-
-    // Default to Windows
-    windowsBtn.classList.add("primary");
-    macBtn.classList.remove("primary");
-
-    windowsBtn.innerHTML = "🪟 Recommended for Windows";
-    macBtn.innerHTML = "🍎 macOS (Apple Silicon)";
-
-}
-
-  }
-
-  loadLatestDownloads();
-
+// Set version text manually
+document.getElementById("latestVersion").textContent =
+  "Latest Version 2.6.0 • Windows & macOS";
 </script>
 
   <!-- Lightbox modal (click images to enlarge) -->
