@@ -17,67 +17,140 @@
     p,li{color:#b7c2e1}
     .small{font-size:13px;color:#b7c2e1}
     .price{font-size:28px;font-weight:800;color:#eaf0ff}
+    .price-sub{font-size:15px;font-weight:600;color:#b7c2e1;margin-top:4px;}
     .tag{display:inline-block;margin-top:8px;padding:6px 10px;border-radius:999px;border:1px solid rgba(250,204,21,.28);background:rgba(250,204,21,.08);color:#facc15;font-size:12px}
     .grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:14px}
     @media(min-width:860px){ .grid{grid-template-columns:1fr 1fr} }
+    .cta-btn{
+      display:inline-block;
+      margin-top:16px;
+      padding:11px 20px;
+      border-radius:12px;
+      background:rgba(37,211,102,0.15);
+      border:1px solid rgba(37,211,102,0.35);
+      color:#25d366;
+      font-size:14px;
+      font-weight:600;
+      cursor:pointer;
+      text-decoration:none;
+      transition:background 0.15s;
+    }
+    .cta-btn:hover{background:rgba(37,211,102,0.25);}
+    .device-table{width:100%;border-collapse:collapse;margin-top:10px;}
+    .device-table th,.device-table td{padding:8px 10px;text-align:left;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.07);}
+    .device-table th{color:#facc15;font-weight:600;}
+    .device-table td{color:#b7c2e1;}
+    .notice{
+      margin-top:20px;
+      padding:14px 16px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,0.08);
+      background:rgba(255,255,255,0.03);
+      font-size:13px;
+      color:#b7c2e1;
+      line-height:1.6;
+    }
+    .notice strong{color:#eaf0ff;}
   </style>
 </head>
 <body>
   <div class="wrap">
     <a href="/">← Back to site</a>
-
     <div class="card">
       <h1>Pricing</h1>
-      <p class="small">USD • Digital delivery • Activate using a license key</p>
+      <p class="small">JMD • One-time payment • Payment via bank transfer • License key delivered to your email</p>
 
       <div class="grid">
 
+        <!-- Individual -->
         <div class="card" style="padding:18px;">
           <h2 style="margin:0;">Individual</h2>
-          <div class="small">1 device</div>
+          <div class="small">1 device • One-time payment</div>
           <div style="margin-top:10px;">
-            <div class="price">$9 <span class="small">/ month</span></div>
-            <div class="price" style="margin-top:6px;">$79 <span class="small">/ year</span></div>
+            <div class="price">$15,000 <span class="small">JMD</span></div>
           </div>
-          <div class="tag">Best for personal practice</div>
+          <div class="tag">Own it forever</div>
           <ul>
-            <li>Designed for single-device use</li>
+            <li>Full access to all current features</li>
+            <li>Free bug fixes and UI updates for life</li>
             <li>Ideal for coaches and students training teams</li>
+            <li>License key sent to your email after payment</li>
           </ul>
+          <a class="cta-btn" href="https://wa.me/18763718377?text=Hi%2C%20I%27d%20like%20to%20purchase%20SCQ%20Scoreboard%20%E2%80%94%20Individual%20Plan%20(%2415%2C000%20JMD)" target="_blank" rel="noopener noreferrer">
+            💬 Purchase via WhatsApp
+          </a>
         </div>
 
+        <!-- Additional Devices -->
         <div class="card" style="padding:18px;">
-          <h2 style="margin:0;">School</h2>
-          <div class="small">Up to 3 devices</div>
+          <h2 style="margin:0;">Additional Devices</h2>
+          <div class="small">Extend your license to more devices</div>
           <div style="margin-top:10px;">
-            <div class="price">$179 <span class="small">/ year</span></div>
+            <div class="price-sub">Already own the Individual plan?</div>
           </div>
-          <div class="tag">Best for school programs</div>
+          <div class="tag">Pay only for what you need</div>
+          <table class="device-table">
+            <thead>
+              <tr>
+                <th>Devices</th>
+                <th>Extra Cost</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2nd device</td>
+                <td>+$5,000 JMD</td>
+                <td>$20,000 JMD</td>
+              </tr>
+              <tr>
+                <td>3rd device</td>
+                <td>+$2,500 JMD</td>
+                <td>$22,500 JMD</td>
+              </tr>
+            </tbody>
+          </table>
           <ul>
-            <li>For school teams and organized training</li>
-            <li>Use on up to 3 devices</li>
+            <li>Same license key works across all your devices</li>
+            <li>No extra software needed — just activate</li>
+            <li>Maximum of 3 devices per license</li>
           </ul>
+          <a class="cta-btn" href="https://wa.me/18763718377?text=Hi%2C%20I%27d%20like%20to%20add%20an%20extra%20device%20to%20my%20SCQ%20Scoreboard%20license" target="_blank" rel="noopener noreferrer">
+            💬 Add a Device via WhatsApp
+          </a>
         </div>
 
+        <!-- Rally -->
         <div class="card" style="padding:18px;">
-          <h2 style="margin:0;">Rally</h2>
-          <div class="small">Unlimited devices</div>
+          <h2 style="margin:0;">Rally Pass</h2>
+          <div class="small">Unlimited devices • 3-day access</div>
           <div style="margin-top:10px;">
-            <div class="price">$49 <span class="small">/ 3 days</span></div>
+            <div class="price">$5,000 <span class="small">JMD</span></div>
           </div>
           <div class="tag">For large practice matches</div>
           <ul>
             <li>Unlimited devices for 3 days</li>
             <li>Must be activated within <strong>7 days</strong> of purchase</li>
             <li>Ideal when hosting large rally-style events</li>
+            <li>License key sent to your email after payment</li>
           </ul>
+          <a class="cta-btn" href="https://wa.me/18763718377?text=Hi%2C%20I%27d%20like%20to%20purchase%20an%20SCQ%20Scoreboard%20Rally%20Pass%20(%245%2C000%20JMD)" target="_blank" rel="noopener noreferrer">
+            💬 Purchase via WhatsApp
+          </a>
         </div>
 
       </div>
 
+      <!-- Payment & Refund Notice -->
+      <div class="notice">
+        <strong>Payment & Refund Policy</strong><br>
+        All payments are made via bank transfer directly to the developer. Once payment is confirmed, your license key will be emailed to you promptly. <strong>All sales are final — no refunds are issued after purchase.</strong> If you experience any issues activating your license, contact support before purchasing a new one.
+      </div>
+
       <p class="small" style="margin-top:14px;">
-        Need help choosing a plan? Contact support using the email on the main site.
+        Questions? Message via WhatsApp or use the contact on the main site.
       </p>
+
     </div>
   </div>
 </body>
